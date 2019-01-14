@@ -82,21 +82,21 @@
 
       <fieldset class="activities">
         <legend>Register for Activities</legend>
-        <label><input type="checkbox" name="all"> Main Conference — $200</label>
-        <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
-        <label><input type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>
-        <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
-
+        <label><input class="main-conf" value="200" type="checkbox" name="main-conf"> Main Conference — $200</label>
+        <label><input class="tues-morning js-frameworks" type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
+        <label><input class="tues-afternoon js-libs" type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
+        <label><input class="tues-morning express" type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
+        <label><input class="tues-afternoon node" type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>
+        <label><input class="wed-morning build-tools" type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
+        <label><input class="wed-afternoon npm" type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
+        <div id="total-container">Total: $<span id="total"></span></div>
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
 
         <label for="payment">I'm going to pay with:</label>
         <select id="payment" name="user_payment">
-          <option value="select_method">Select Payment Method</option>
+          <option disabled selected value="select_method">Select Payment Method</option>
           <option value="credit card">Credit Card</option>
           <option value="paypal">PayPal</option>
           <option value="bitcoin">Bitcoin</option>
@@ -145,11 +145,11 @@
         </div>
 
         <div>
-        	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
+        	<p>You selected the PayPal option. We'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div>
 
         <div>
-        	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
+        	<p>You selected the Bitcoin option. When you click “Register” below, we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>
 
       </fieldset>

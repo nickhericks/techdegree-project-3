@@ -1,4 +1,6 @@
-
+/********************************
+Basic Info section
+********************************/
 // Set focus to name field on page load
 $('#name').focus();
 
@@ -15,8 +17,11 @@ $('#title').on('change', function() {
 });
 
 
-// Hide Color dropdown menu on page load
 
+/********************************
+T-Shirt section
+********************************/
+// Hide Color dropdown menu on page load
 $('#colors-js-puns').hide();
 const $colors = $('#color option');
 $colors.hide();
@@ -40,3 +45,66 @@ $('#design').on('change', function() {
     });
   }
 });
+
+
+
+
+/********************************
+Activities section
+********************************/
+const $totalContainer = $('#total-container');
+let $total = $('#total');
+// $('#total-container').hide();
+
+const $main = $('.main-conf');
+
+const checkConflict = function(workshop) {
+
+}
+
+const $fsdhjkfdshjk = $('input[disabled]'); // selects inputs with disabled attrinute
+
+
+$($main).on('click', function() {
+  console.log($main.val());
+  $total.text($main.val());
+
+
+});
+
+
+
+
+/********************************
+Payment section
+********************************/
+const $method = $('#payment');
+const $credit = $('#credit-card');
+const $paypal = $('#credit-card').next();
+const $bitcoin = $('#credit-card').next().next();
+
+// Show selected payment option
+const newPayment = function(paymentSelected) {
+  $($credit).hide();
+  $($paypal).hide();
+  $($bitcoin).hide();
+  $(paymentSelected).show();
+}
+
+// Listen for changes to selected payment input
+$($method).on('change', function() {
+  switch ($($method).val()) {
+    case 'credit card':
+      newPayment($credit);
+      break;
+    case 'paypal':
+      newPayment($paypal);
+      break;
+    case 'bitcoin':
+      newPayment($bitcoin);
+      break;
+  }
+});
+
+// Hide payment methods on page load
+newPayment();
