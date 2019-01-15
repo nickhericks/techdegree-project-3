@@ -52,35 +52,39 @@ $('#design').on('change', function() {
 /********************************
 Activities section
 ********************************/
-const $totalContainer = $('#total-container');
-let $total = $('#total');
-// $('#total-container').hide();
 
-const $main = $('.main-conf');
-
-const checkConflict = function(workshop) {
-
-}
+const $activities = $('.activities input');
+// console.log($activities);
 
 
-$('input[type=checkbox]').attr('checked');
+$activities.each(function(index, element) {
+  // console.log(index, element);
 
-const $fsdhjkfdshjk = $('input[disabled]'); // selects inputs with disabled attrinute
+  $(element).on('click', function() {
+    console.log(index, element);
+    index === 0 ? (console.log('Add $200')) : (console.log('Add $100'));
 
 
-$($main).on('click', function() {
-  console.log($main.val());
-  $total.text($main.val());
+    // If checked
+      // If index===0
+        // Add $200
+      //If index!==0                  Create isIndexZero() function
+        // Add $100                   Create an updateTotal() function
+        // Check/Update conflicts     Create a checkConflicts() function
+
+
+    // If unchecked
+      // If index===0
+        // Subtract $200
+      // If index!==0
+        // Subtract $100
+        // Check/Update conflicts
+
+
+
+  });
 
 });
-
-// Listen for change events on form inputs
-// Upon change
-  // if target is checked
-    // add value to total variable
-  //if target is unchecked
-    // subtract value from total variable
-
 
 
 /********************************
