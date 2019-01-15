@@ -65,6 +65,15 @@ $activities.each(function(index, element) {
     index === 0 ? (console.log('Add $200')) : (console.log('Add $100'));
 
 
+
+
+    // TODO: WITHIN THESE EVET LISTENERS, I HAVE ACCESS
+    // TO THE INDEX OF EACH ACTIVITY WHICH I CAN USE
+    // TO PASS TO THE THREE ASSISTING FUNCTIONS IDENTIFIED BELOW
+
+
+
+
     // If checked
       // If index===0
         // Add $200
