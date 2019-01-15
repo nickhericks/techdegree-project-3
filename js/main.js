@@ -62,6 +62,9 @@ const checkConflict = function(workshop) {
 
 }
 
+
+$('input[type=checkbox]').attr('checked');
+
 const $fsdhjkfdshjk = $('input[disabled]'); // selects inputs with disabled attrinute
 
 
@@ -69,9 +72,14 @@ $($main).on('click', function() {
   console.log($main.val());
   $total.text($main.val());
 
-
 });
 
+// Listen for change events on form inputs
+// Upon change
+  // if target is checked
+    // add value to total variable
+  //if target is unchecked
+    // subtract value from total variable
 
 
 
@@ -107,4 +115,4 @@ $($method).on('change', function() {
 });
 
 // Hide payment methods on page load
-newPayment();
+newPayment($credit);
