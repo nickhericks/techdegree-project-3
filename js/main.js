@@ -34,7 +34,7 @@ $('#design').on('change', function() {
   }
 
   if($('#design').val() === 'heart js') {
-    console.log($('#design').val());
+    // console.log($('#design').val());
     $colors.each(function() {
       /I/.test($(this).text()) ? ($(this).show()) : ($(this).hide());
     });
@@ -52,48 +52,65 @@ $('#design').on('change', function() {
 /********************************
 Activities section
 ********************************/
+const $activities = $('input:checkbox');
+let total = 0;
+const conflicts = {
+  '1': 3,
+  '3': 1,
+  '2': 4,
+  '4': 2,
+}
 
-const $activities = $('.activities input');
-// console.log($activities);
+const $totalDiv = $(`<div>Total: $<span class="totalSpan"></span></div>`);
+$('.activities').append($totalDiv);
+$($totalDiv).addClass('total').hide();
 
+// Check for conflicting activities
+const checkConflicts = function(index, activity) {
+  // If a conflict exists
+  if(index in conflicts) {
 
-$activities.each(function(index, element) {
-  // console.log(index, element);
+    // Find conflicting activity index
+    const conflictIndex = conflicts[index]
 
-  $(element).on('click', function() {
-    console.log(index, element);
-    index === 0 ? (console.log('Add $200')) : (console.log('Add $100'));
+    // If activity is checked, disable conflicting activity
+    if (activity.checked) {
+      $($activities[conflictIndex]).prop("disabled", true);
+      $('.activities label').eq(conflictIndex).addClass("conflict");
+    }
 
+    // If activity is de-selected, re-enable conflicting activity
+    else {
+      $($activities[conflictIndex]).prop("disabled", false);
+      $('.activities label').eq(conflictIndex).removeClass("conflict");
+    }
+  }
+}
 
+// Update total cost of activities
+const updateTotal = function(index, activity) {
+  let adjustment = index===0 ? (200) : (100);
 
+  activity.checked ? (total += adjustment) : (total -= adjustment);
 
-    // TODO: WITHIN THESE EVET LISTENERS, I HAVE ACCESS
-    // TO THE INDEX OF EACH ACTIVITY WHICH I CAN USE
-    // TO PASS TO THE THREE ASSISTING FUNCTIONS IDENTIFIED BELOW
+  $('.totalSpan').text(total);
 
+  total === 0 ? ($($totalDiv).hide()) : ($($totalDiv).show());
+}
 
-
-
-    // If checked
-      // If index===0
-        // Add $200
-      //If index!==0                  Create isIndexZero() function
-        // Add $100                   Create an updateTotal() function
-        // Check/Update conflicts     Create a checkConflicts() function
-
-
-    // If unchecked
-      // If index===0
-        // Subtract $200
-      // If index!==0
-        // Subtract $100
-        // Check/Update conflicts
-
-
-
+// Create event listener for each activity
+$activities.each(function(index, activity) {
+  $(activity).on('change', function() {
+    checkConflicts(index, activity);
+    updateTotal(index, activity);
   });
-
 });
+
+
+
+
+
+
 
 
 /********************************
@@ -129,3 +146,18 @@ $($method).on('change', function() {
 
 // Hide payment methods on page load
 newPayment($credit);
+
+
+
+/********************************
+Form submit
+********************************/
+$('button').attr('');
+
+$('button').on('click', function(event) {
+  event.preventDefault();
+
+  // if(noErrors) {
+  //   resetForm();
+  // }
+});

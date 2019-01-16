@@ -33,6 +33,16 @@ a {
   text-decoration: none;
 }
 
+.conflict {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.total {
+  color: #4d89f5;
+  font-weight: 600;
+}
+
 /* =================================
   Form Element Styles
 ==================================== */
