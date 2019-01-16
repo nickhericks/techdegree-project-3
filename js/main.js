@@ -90,7 +90,7 @@ const checkConflicts = function(index, activity) {
 // Update total cost of activities
 const updateTotal = function(index, activity) {
   let adjustment = index===0 ? (200) : (100);
-
+  // If activity is checked, add amount, if unchecked, subtract amount
   activity.checked ? (total += adjustment) : (total -= adjustment);
 
   $('.totalSpan').text(total);
