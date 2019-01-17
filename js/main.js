@@ -1,8 +1,20 @@
 /********************************
+Global variables
+********************************/
+const $name = $('#name');
+const $email = $('#mail');
+const $activities = $('input:checkbox');
+const $ccNum = $('#cc-num');
+const $zip = $('#zip');
+const $cvv = $('#cvv');
+
+
+
+/********************************
 Basic Info section
 ********************************/
 // Set focus to name field on page load
-$('#name').focus();
+$($name).focus();
 
 // Hide Other Job Role field on page load
 $('#other').hide();
@@ -52,7 +64,6 @@ $('#design').on('change', function() {
 /********************************
 Activities section
 ********************************/
-const $activities = $('input:checkbox');
 let total = 0;
 const conflicts = {
   '1': 3,
@@ -161,3 +172,26 @@ $('button').on('click', function(event) {
   //   resetForm();
   // }
 });
+
+$($name).on('keyup', function() {
+  console.log(validName());
+  validName() ? (removeError($(this))) : (showError($(this), `Please type your name.`));
+});
+
+const showError = function(field) {
+  console.log(field);
+}
+
+const removeError = function(field) {
+  console.log(field);
+}
+
+/********************************
+Form Validation
+********************************/
+
+const validName = function() {
+  console.log($($name).val());
+  return /.*\S.*/.test($($name).val());
+
+}
