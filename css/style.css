@@ -43,6 +43,8 @@ a {
   font-weight: 600;
 }
 
+
+
 /* =================================
   Form Element Styles
 ==================================== */
@@ -130,6 +132,15 @@ button {
 button:hover {
   border-color: #4CEF8D;
   transition: border-color .4s, background-color .4s;
+}
+
+.error-border {
+  border: 2px solid red !important;
+}
+
+.error-message {
+  color: red;
+  text-align: right;
 }
 
 /* =================================

@@ -163,27 +163,51 @@ newPayment($credit);
 /********************************
 Form submit
 ********************************/
+
+$('#name').prev().after(`<div id="nameError" class="error-message">Please enter your name</div>`);
+const $nameError = $('#nameError');
+$('#nameError').hide();
+
+$('#mail').prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
+const $emailError = $('#emailError');
+$('#emailError').hide();
+
+
+
 $('button').attr('');
 
 $('button').on('click', function(event) {
   event.preventDefault();
-
-  // if(noErrors) {
-  //   resetForm();
-  // }
+  formIsValid();
 });
 
+//
+// NEED TO UPDATE EVENT LISTENER TO SOMETHING ELSE.
+// RIGHT NOW THIS SHOWS ERROR WHEN YOU TAB TO A FIELD.
+// OR MAYBE I JUST REMOVE IMMEDIATE VALIDATION ON ALL FIELDS EXCEPT NAME
+//
+
+// Checks name field validation and hides or shows error
 $($name).on('keyup', function() {
-  console.log(validName());
-  validName() ? (removeError($(this))) : (showError($(this), `Please type your name.`));
+  validName();
 });
 
-const showError = function(field) {
-  console.log(field);
+// Checks email field validation and hides or shows error
+$($email).on('keyup', function() {
+  validEmail();
+});
+
+// Displays error border and message
+const showError = function(field, message) {
+  $(field).addClass('error-border');
+  $(message).show();
 }
 
-const removeError = function(field) {
-  console.log(field);
+// Removes error border and message
+const removeError = function(field, message) {
+  $(field).removeClass('error-border');
+  $(message).hide();
+
 }
 
 /********************************
@@ -191,7 +215,42 @@ Form Validation
 ********************************/
 
 const validName = function() {
-  console.log($($name).val());
-  return /.*\S.*/.test($($name).val());
+  const nameIsValid = /.*\S.*/.test($($name).val());
+  // If name is valid, hide errors, else show errors
+  nameIsValid ? (removeError($($name), $nameError)) : (showError($($name), $nameError));
+  // Return true if valid
+  return nameIsValid;
+}
+
+//
+// NEED TO UPDATE EMAIL VALIDATION
+// NEED TO UPDATE EMAIL VALIDATION
+// NEED TO UPDATE EMAIL VALIDATION
+//
+
+const validEmail = function() {
+  const emailIsValid = /.*\S.*/.test($($email).val());
+  // If name is valid, hide errors, else show errors
+  emailIsValid ? (removeError($('#mail'), $emailError)) : (showError($('#mail'), $emailError));
+  // Return true if valid
+  return emailIsValid;
+}
+
+// Run this function when form is submitted
+const formIsValid = function() {
+  // console.log(`Name field is valid: ${validName()}`);
+  // console.log(`Email field is valid: ${validEmail()}`);
+
+  // Add other validation functions with '&&' below
+  if (validName() && validEmail()) {
+    console.log(`true`);
+    return true;
+  }
+  else {
+    console.log(`false`);
+    return false;
+  }
 
 }
+
+// formIsValid();
