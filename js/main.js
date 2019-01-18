@@ -315,12 +315,9 @@ const validPayment = function() {
   }
 }
 
+
 // Run this function when form is submitted
 const formIsValid = function() {
-  // console.log(`Name field is valid: ${validName()}`);
-  // console.log(`Email field is valid: ${validEmail()}`);
-  // console.log(`Activity field is valid: ${validActivity()}`);
-  // console.log(`Payment field is valid: ${validPayment()}`);
   validName();
   validEmail();
   validActivity();
@@ -334,7 +331,4 @@ const formIsValid = function() {
     console.log(`false`);
     return false;
   }
-
 }
-
-// formIsValid();
