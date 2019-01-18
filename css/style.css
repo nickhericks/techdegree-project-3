@@ -39,8 +39,9 @@ a {
 }
 
 .total {
-  color: #4d89f5;
+  color: #3e7df7;
   font-weight: 600;
+  font-size: 1.25rem;
 }
 
 
@@ -135,12 +136,17 @@ button:hover {
 }
 
 .error-border {
-  border: 2px solid red !important;
+  border: 2px solid rgb(250,96,96) !important;
 }
 
 .error-message {
-  color: red;
-  text-align: right;
+  color: #fff;
+  background-color: rgb(250,96,96);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding: .75rem;
+  margin: .5rem 0;
 }
 
 /* =================================

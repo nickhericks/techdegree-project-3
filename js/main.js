@@ -176,44 +176,58 @@ $($activities).parent().parent().prepend(`<div id="activityError" class="error-m
 const $activityError = $('#activityError');
 $('#activityError').hide();
 
-$($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">Card number must be between 13 and 16 digits long.</div>`);
-const $ccNumError = $('#ccNumError');
-$('#ccNumError').hide();
+$($cvv).parent().parent().prepend(`<div id="cvvError" class="error-message">CVV must be 3 digits long.</div>`);
+const $cvvError = $('#cvvError');
+$('#cvvError').hide();
 
 $($zip).parent().parent().prepend(`<div id="zipError" class="error-message">Zip code must be 5 digits long.</div>`);
 const $zipError = $('#zipError');
 $('#zipError').hide();
 
-$($cvv).parent().parent().prepend(`<div id="cvvError" class="error-message">CVV must be 3 digits long.</div>`);
-const $cvvError = $('#cvvError');
-$('#cvvError').hide();
+$($ccNum).parent().parent().prepend(`<div id="missingCcNumError" class="error-message">Please enter a credit card number</div>`);
+const $missingCcNumError = $('#missingCcNumError');
+$('#missingCcNumError').hide();
+
+$($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">Card number must be between 13 and 16 digits long.</div>`);
+const $ccNumError = $('#ccNumError');
+$('#ccNumError').hide();
 
 
 
-$('button').attr('');
 
+
+// When submit button is clicked
 $('button').on('click', function(event) {
   event.preventDefault();
   formIsValid();
+
+  //
+  //
+  // Decide how to handle form submition and resetting the page
+  //
+  //
+  //
 });
 
 
 
-// Checks name field validation and hides or shows error
-$($name).on('keyup', function() {
-  validName();
+// Checks email field validation and hides or shows error
+$($email).on('keyup', function(e) {
+  if (e.keyCode !== 9) {
+    validEmail();
+  }
 });
 
 // Displays error border and message
 const showError = function(field, message) {
   $(field).addClass('error-border');
-  $(message).show();
+  $(message).slideDown(1000);
 }
 
 // Removes error border and message
 const removeError = function(field, message) {
   $(field).removeClass('error-border');
-  $(message).hide();
+  $(message).slideUp(1000);
 }
 
 /********************************
@@ -252,8 +266,18 @@ const validActivity = function() {
 const validPayment = function() {
   // Check credit card number value, show appropriate errors and return true if no errors
   const validCardNumber = function() {
-    const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
-    ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
+    let $ccNumValue = $($ccNum).val();
+    const ccNumIsValid = /^\d{13,16}$/.test($ccNumValue);
+    // If no credit card number is entered, display missingCcNumError message
+    if($ccNumValue.length === 0) {
+      removeError($($ccNum), $ccNumError);
+      showError($($ccNum), $missingCcNumError);
+    }
+    // Else check if value is valid
+    else {
+      removeError($($ccNum), $missingCcNumError)
+      ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
+    }
     return ccNumIsValid;
   }
 
