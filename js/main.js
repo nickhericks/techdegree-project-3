@@ -180,6 +180,14 @@ $($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">
 const $ccNumError = $('#ccNumError');
 $('#ccNumError').hide();
 
+$($zip).parent().parent().prepend(`<div id="zipError" class="error-message">Zip code must be 5 digits long.</div>`);
+const $zipError = $('#zipError');
+$('#zipError').hide();
+
+$($cvv).parent().parent().prepend(`<div id="cvvError" class="error-message">CVV must be 3 digits long.</div>`);
+const $cvvError = $('#cvvError');
+$('#cvvError').hide();
+
 
 
 $('button').attr('');
@@ -238,13 +246,25 @@ const validActivity = function() {
   return activityIsValid;
 }
 
-// Check name value, show appropriate errors and return true if no errors
+// Check credit card number value, show appropriate errors and return true if no errors
 const validCardNumber = function() {
   const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
-  // If name is valid, hide errors, else show errors
   ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
-  // Return true if valid
   return ccNumIsValid;
+}
+
+// Check zip code value, show appropriate errors and return true if no errors
+const validZip = function() {
+  const zipIsValid = /^\d{5}$/.test($($zip).val());
+  zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
+  return zipIsValid;
+}
+
+// Check cvv value, show appropriate errors and return true if no errors
+const validCvv = function() {
+  const cvvIsValid = /^\d{3}$/.test($($cvv).val());
+  cvvIsValid ? (removeError($($cvv), $cvvError)) : (showError($($cvv), $cvvError));
+  return cvvIsValid;
 }
 
 // Check activity total value, show appropriate errors and return true if no errors
