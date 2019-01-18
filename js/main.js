@@ -246,38 +246,42 @@ const validActivity = function() {
   return activityIsValid;
 }
 
-// Check credit card number value, show appropriate errors and return true if no errors
-const validCardNumber = function() {
-  const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
-  ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
-  return ccNumIsValid;
-}
 
-// Check zip code value, show appropriate errors and return true if no errors
-const validZip = function() {
-  const zipIsValid = /^\d{5}$/.test($($zip).val());
-  zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
-  return zipIsValid;
-}
 
-// Check cvv value, show appropriate errors and return true if no errors
-const validCvv = function() {
-  const cvvIsValid = /^\d{3}$/.test($($cvv).val());
-  cvvIsValid ? (removeError($($cvv), $cvvError)) : (showError($($cvv), $cvvError));
-  return cvvIsValid;
-}
-
-// Check activity total value, show appropriate errors and return true if no errors
+// Check payment fields, show appropriate errors and return true if no errors
 const validPayment = function() {
+  // Check credit card number value, show appropriate errors and return true if no errors
+  const validCardNumber = function() {
+    const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
+    ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
+    return ccNumIsValid;
+  }
+
+  // Check zip code value, show appropriate errors and return true if no errors
+  const validZip = function() {
+    const zipIsValid = /^\d{5}$/.test($($zip).val());
+    zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
+    return zipIsValid;
+  }
+
+  // Check cvv value, show appropriate errors and return true if no errors
+  const validCvv = function() {
+    const cvvIsValid = /^\d{3}$/.test($($cvv).val());
+    cvvIsValid ? (removeError($($cvv), $cvvError)) : (showError($($cvv), $cvvError));
+    return cvvIsValid;
+  }
+
+  // Check if 'credit card' is selected as payment method
   if ($($method).val() !== 'credit card') {
-    console.log(`not credit card`);
+    // Return true if 'credit card' is not selected
     return true;
   }
   else {
-    console.log(`credit card selected`);
+    // If 'credit card' is selected, run payment validation functions
     validCardNumber();
     validZip();
     validCvv();
+    // If all payment fields are valid, return true
     if(validCardNumber() && validZip() && validCvv()) {
       return true;
     }
@@ -289,10 +293,10 @@ const validPayment = function() {
 
 // Run this function when form is submitted
 const formIsValid = function() {
-  console.log(`Name field is valid: ${validName()}`);
-  console.log(`Email field is valid: ${validEmail()}`);
-  console.log(`Activity field is valid: ${validActivity()}`);
-  console.log(`Payment field is valid: ${validPayment()}`);
+  // console.log(`Name field is valid: ${validName()}`);
+  // console.log(`Email field is valid: ${validEmail()}`);
+  // console.log(`Activity field is valid: ${validActivity()}`);
+  // console.log(`Payment field is valid: ${validPayment()}`);
   validName();
   validEmail();
   validActivity();
