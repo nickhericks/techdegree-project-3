@@ -164,33 +164,37 @@ newPayment($credit);
 Form submit
 ********************************/
 
+$('form').prepend(`<div id="mainError" class="error-message">Form not submitted. Please provide the information requested in the red boxes below.</div>`);
+const $mainError = $('#mainError');
+$($mainError).hide();
+
 $($name).prev().after(`<div id="nameError" class="error-message">Please enter your name</div>`);
 const $nameError = $('#nameError');
-$('#nameError').hide();
+$($nameError).hide();
 
 $($email).prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
 const $emailError = $('#emailError');
-$('#emailError').hide();
+$($emailError).hide();
 
 $($activities).parent().parent().prepend(`<div id="activityError" class="error-message">Please select at least one activity</div>`);
 const $activityError = $('#activityError');
-$('#activityError').hide();
+$($activityError).hide();
 
 $($cvv).parent().parent().prepend(`<div id="cvvError" class="error-message">CVV must be 3 digits long.</div>`);
 const $cvvError = $('#cvvError');
-$('#cvvError').hide();
+$($cvvError).hide();
 
 $($zip).parent().parent().prepend(`<div id="zipError" class="error-message">Zip code must be 5 digits long.</div>`);
 const $zipError = $('#zipError');
-$('#zipError').hide();
+$($zipError).hide();
 
 $($ccNum).parent().parent().prepend(`<div id="missingCcNumError" class="error-message">Please enter a credit card number</div>`);
 const $missingCcNumError = $('#missingCcNumError');
-$('#missingCcNumError').hide();
+$($missingCcNumError).hide();
 
 $($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">Card number must be between 13 and 16 digits long.</div>`);
 const $ccNumError = $('#ccNumError');
-$('#ccNumError').hide();
+$($ccNumError).hide();
 
 
 
@@ -199,14 +203,20 @@ $('#ccNumError').hide();
 // When submit button is clicked
 $('button').on('click', function(event) {
   event.preventDefault();
-  formIsValid();
 
-  //
-  //
-  // Decide how to handle form submition and resetting the page
-  //
-  //
-  //
+  formIsValid();
+  window.scrollTo(0, 0);
+
+
+  if(  formIsValid() ) {
+    //
+    //
+    // CLEAR FORM FIELDS HERE
+    
+
+
+
+  }
 });
 
 
@@ -227,7 +237,7 @@ const showError = function(field, message) {
 // Removes error border and message
 const removeError = function(field, message) {
   $(field).removeClass('error-border');
-  $(message).slideUp(1000);
+  $(message).hide();
 }
 
 /********************************
@@ -325,10 +335,12 @@ const formIsValid = function() {
   // Add other validation functions with '&&' below
   if (validName() && validEmail() && validActivity() && validPayment()) {
     console.log(`true`);
+    $($mainError).hide();
     return true;
   }
   else {
     console.log(`false`);
+    $($mainError).slideDown(1000);
     return false;
   }
 }
