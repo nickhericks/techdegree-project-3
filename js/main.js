@@ -164,13 +164,21 @@ newPayment($credit);
 Form submit
 ********************************/
 
-$('#name').prev().after(`<div id="nameError" class="error-message">Please enter your name</div>`);
+$($name).prev().after(`<div id="nameError" class="error-message">Please enter your name</div>`);
 const $nameError = $('#nameError');
 $('#nameError').hide();
 
-$('#mail').prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
+$($email).prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
 const $emailError = $('#emailError');
 $('#emailError').hide();
+
+$($activities).parent().parent().prepend(`<div id="activityError" class="error-message">Please select at least one activity</div>`);
+const $activityError = $('#activityError');
+$('#activityError').hide();
+
+$($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">Card number must be between 13 and 16 digits long.</div>`);
+const $ccNumError = $('#ccNumError');
+$('#ccNumError').hide();
 
 
 
@@ -181,20 +189,11 @@ $('button').on('click', function(event) {
   formIsValid();
 });
 
-//
-// NEED TO UPDATE EVENT LISTENER TO SOMETHING ELSE.
-// RIGHT NOW THIS SHOWS ERROR WHEN YOU TAB TO A FIELD.
-// OR MAYBE I JUST REMOVE IMMEDIATE VALIDATION ON ALL FIELDS EXCEPT NAME
-//
+
 
 // Checks name field validation and hides or shows error
 $($name).on('keyup', function() {
   validName();
-});
-
-// Checks email field validation and hides or shows error
-$($email).on('keyup', function() {
-  validEmail();
 });
 
 // Displays error border and message
@@ -207,13 +206,13 @@ const showError = function(field, message) {
 const removeError = function(field, message) {
   $(field).removeClass('error-border');
   $(message).hide();
-
 }
 
 /********************************
 Form Validation
 ********************************/
 
+// Check name value, show appropriate errors and return true if no errors
 const validName = function() {
   const nameIsValid = /.*\S.*/.test($($name).val());
   // If name is valid, hide errors, else show errors
@@ -222,27 +221,64 @@ const validName = function() {
   return nameIsValid;
 }
 
-//
-// NEED TO UPDATE EMAIL VALIDATION
-// NEED TO UPDATE EMAIL VALIDATION
-// NEED TO UPDATE EMAIL VALIDATION
-//
-
+// Check email value, show appropriate errors and return true if no errors
 const validEmail = function() {
-  const emailIsValid = /.*\S.*/.test($($email).val());
+  const emailIsValid = /^[^@]+@[^@]+\.[a-z]+$$/i.test($($email).val());
   // If name is valid, hide errors, else show errors
-  emailIsValid ? (removeError($('#mail'), $emailError)) : (showError($('#mail'), $emailError));
+  emailIsValid ? (removeError($($email), $emailError)) : (showError($($email), $emailError));
   // Return true if valid
   return emailIsValid;
 }
 
+// Check activity total value, show appropriate errors and return true if no errors
+const validActivity = function() {
+  let activityIsValid = false;
+  total ? (activityIsValid = true) : (activityIsValid = false);
+  activityIsValid ? (removeError($($activities), $activityError)) : (showError($($activities), $activityError));
+  return activityIsValid;
+}
+
+// Check name value, show appropriate errors and return true if no errors
+const validCardNumber = function() {
+  const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
+  // If name is valid, hide errors, else show errors
+  ccNumIsValid ? (removeError($($ccNum), $ccNumError)) : (showError($($ccNum), $ccNumError));
+  // Return true if valid
+  return ccNumIsValid;
+}
+
+// Check activity total value, show appropriate errors and return true if no errors
+const validPayment = function() {
+  if ($($method).val() !== 'credit card') {
+    console.log(`not credit card`);
+    return true;
+  }
+  else {
+    console.log(`credit card selected`);
+    validCardNumber();
+    validZip();
+    validCvv();
+    if(validCardNumber() && validZip() && validCvv()) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+}
+
 // Run this function when form is submitted
 const formIsValid = function() {
-  // console.log(`Name field is valid: ${validName()}`);
-  // console.log(`Email field is valid: ${validEmail()}`);
-
+  console.log(`Name field is valid: ${validName()}`);
+  console.log(`Email field is valid: ${validEmail()}`);
+  console.log(`Activity field is valid: ${validActivity()}`);
+  console.log(`Payment field is valid: ${validPayment()}`);
+  validName();
+  validEmail();
+  validActivity();
+  validPayment();
   // Add other validation functions with '&&' below
-  if (validName() && validEmail()) {
+  if (validName() && validEmail() && validActivity() && validPayment()) {
     console.log(`true`);
     return true;
   }
