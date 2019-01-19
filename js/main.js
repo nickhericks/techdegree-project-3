@@ -198,6 +198,23 @@ $($ccNumError).hide();
 
 
 
+const resetFormFields = function() {
+
+  $($name).val('');
+  $($email).val('');
+  $('#title').val('full-stack js developer')
+  $('#other').val('')
+  $('#other').hide();
+  $('#size').val('medium')
+  $('#design').val('select')
+  $('#color').val('select')
+  $('#color').hide()
+  //
+  // deselect all checkboxes
+  //
+
+
+}
 
 
 // When submit button is clicked
@@ -212,7 +229,7 @@ $('button').on('click', function(event) {
     //
     //
     // CLEAR FORM FIELDS HERE
-    
+    resetFormFields();
 
 
 
@@ -334,12 +351,12 @@ const formIsValid = function() {
   validPayment();
   // Add other validation functions with '&&' below
   if (validName() && validEmail() && validActivity() && validPayment()) {
-    console.log(`true`);
+    // console.log(`true`);
     $($mainError).hide();
     return true;
   }
   else {
-    console.log(`false`);
+    // console.log(`false`);
     $($mainError).slideDown(1000);
     return false;
   }
