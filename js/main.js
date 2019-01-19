@@ -1,6 +1,7 @@
 /********************************
 Global variables
 ********************************/
+const $form = $('form');
 const $name = $('#name');
 const $email = $('#mail');
 const $activities = $('input:checkbox');
@@ -15,6 +16,37 @@ const conflicts = {
   '2': 4,
   '4': 2,
 }
+
+// Error messages
+const $mainError = $(`<div class="error-message">Form not submitted. Please provide the information requested in the red boxes below.</div>`);
+const $nameError = $(`<div class="error-message">Please enter your name</div>`);
+const $emailError = $(`<div class="error-message">Please enter a valid email address</div>`);
+const $activityError = $(`<div class="error-message">Please select at least one activity</div>`);
+const $cvvError = $(`<div class="error-message">CVV must be 3 digits long.</div>`);
+const $zipError = $(`<div class="error-message">Zip code must be 5 digits long.</div>`);
+const $missingCcNumError = $(`<div class="error-message">Please enter a credit card number</div>`);
+const $ccNumError = $(`<div class="error-message">Card number must be between 13 and 16 digits long.</div>`);
+
+// Append all error messages on page load
+$($form).prepend($mainError);
+$($name).prev().after($nameError);
+$($email).prev().after($emailError);
+$($activities).parent().parent().prepend($activityError);
+$($cvv).parent().parent().prepend($cvvError);
+$($zip).parent().parent().prepend($zipError);
+$($ccNum).parent().parent().prepend($missingCcNumError);
+$($ccNum).parent().parent().prepend($ccNumError);
+
+// Hide all error messages on page load
+$($mainError).hide();
+$($nameError).hide();
+$($emailError).hide();
+$($activityError).hide();
+$($cvvError).hide();
+$($zipError).hide();
+$($missingCcNumError).hide();
+$($ccNumError).hide();
+
 
 
 
@@ -158,44 +190,13 @@ Form submit
 ********************************/
 
 
-const $mainError = $(`<div id="mainError" class="error-message">Form not submitted. Please provide the information requested in the red boxes below.</div>`);
-
-const $nameError = $(`<div id="nameError" class="error-message">Please enter your name</div>`);
 
 
 
 
 
 
-$('form').prepend($mainError);
-$($mainError).hide();
 
-$($name).prev().after($nameError);
-$($nameError).hide();
-
-$($email).prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
-const $emailError = $('#emailError');
-$($emailError).hide();
-
-$($activities).parent().parent().prepend(`<div id="activityError" class="error-message">Please select at least one activity</div>`);
-const $activityError = $('#activityError');
-$($activityError).hide();
-
-$($cvv).parent().parent().prepend(`<div id="cvvError" class="error-message">CVV must be 3 digits long.</div>`);
-const $cvvError = $('#cvvError');
-$($cvvError).hide();
-
-$($zip).parent().parent().prepend(`<div id="zipError" class="error-message">Zip code must be 5 digits long.</div>`);
-const $zipError = $('#zipError');
-$($zipError).hide();
-
-$($ccNum).parent().parent().prepend(`<div id="missingCcNumError" class="error-message">Please enter a credit card number</div>`);
-const $missingCcNumError = $('#missingCcNumError');
-$($missingCcNumError).hide();
-
-$($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">Card number must be between 13 and 16 digits long.</div>`);
-const $ccNumError = $('#ccNumError');
-$($ccNumError).hide();
 
 
 
