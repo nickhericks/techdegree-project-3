@@ -41,12 +41,12 @@ $colors.hide();
 $('#design').on('change', function() {
   if($('#design').val() !== 'select') {
     $('#colors-js-puns').fadeIn(250);
-  } else {
+  }
+  else {
     $('#colors-js-puns').fadeOut();
   }
 
   if($('#design').val() === 'heart js') {
-    // console.log($('#design').val());
     $colors.each(function() {
       /I/.test($(this).text()) ? ($(this).show()) : ($(this).hide());
     });
@@ -287,8 +287,6 @@ const validActivity = function() {
   return activityIsValid;
 }
 
-
-
 // Check payment fields, show appropriate errors and return true if no errors
 const validPayment = function() {
   // Check credit card number value, show appropriate errors and return true if no errors
@@ -342,7 +340,6 @@ const validPayment = function() {
   }
 }
 
-
 // Run this function when form is submitted
 const formIsValid = function() {
   validName();
@@ -351,12 +348,10 @@ const formIsValid = function() {
   validPayment();
   // Add other validation functions with '&&' below
   if (validName() && validEmail() && validActivity() && validPayment()) {
-    // console.log(`true`);
     $($mainError).hide();
     return true;
   }
   else {
-    // console.log(`false`);
     $($mainError).slideDown(1000);
     return false;
   }
