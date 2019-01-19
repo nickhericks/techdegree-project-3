@@ -213,6 +213,8 @@ const resetFormFields = function() {
     $($activities[index]).prop("disabled", false);
     $('.activities label').eq(index).removeClass("conflict");
   });
+  total = 0;
+  $($totalDiv).hide()
   $('#payment').val('select_method')
   $($ccNum).val('')
   $($zip).val('')
