@@ -10,6 +10,8 @@ const $zip = $('#zip');
 const $cvv = $('#cvv');
 
 let total = 0;
+
+// Key value pairs identify activity conflicts
 const conflicts = {
   '1': 3,
   '3': 1,
@@ -185,75 +187,23 @@ newPayment($credit);
 
 
 
-/********************************
-Form submit
-********************************/
 
 
 
-
-
-
-
-
-
-
-
-
-const resetFormFields = function() {
-  $($name).val('');
-  $($email).val('');
-  $('#title').val('full-stack js developer')
-  $('#other-title').val('')
-  $('#other').hide();
-  $('#size').val('medium')
-  $('#design').val('select')
-  $('#color').val('select')
-  $('#colors-js-puns').hide()
-  $($activities).each(function(index) {
-    $activities[index].checked = false;
-    $($activities[index]).prop("disabled", false);
-    $('.activities label').eq(index).removeClass("conflict");
-  });
-  total = 0;
-  $($totalDiv).hide()
-  $('#payment').val('select_method')
-  $($ccNum).val('')
-  $($zip).val('')
-  $(cvv).val('')
-  $('#exp-month').val('1')
-  $('#exp-year').val('2016')
-}
-
-
-// When submit button is clicked
-$('button').on('click', function(event) {
-  event.preventDefault();
-  window.scrollTo(0, 0);
-  // Return true if all form fields are valid
-  formIsValid();
-  if( formIsValid() ) {
-    // Clear all fields on form submit
-    resetFormFields();
-  }
-});
-
-
-
-// Checks email field validation and hides or shows error
+// Checks email field validation and hide or show error
 $($email).on('keyup', function(e) {
   if (e.keyCode !== 9) {
     validEmail();
   }
 });
 
-// Displays error border and message
+// Display error border and message
 const showError = function(field, message) {
   $(field).addClass('error-border');
   $(message).slideDown(1000);
 }
 
-// Removes error border and message
+// Remove error border and message
 const removeError = function(field, message) {
   $(field).removeClass('error-border');
   $(message).hide();
@@ -289,9 +239,9 @@ const validActivity = function() {
   return activityIsValid;
 }
 
-// Check payment fields, show appropriate errors and return true if no errors
+// Check payment fields for validity
 const validPayment = function() {
-  // Check credit card number value, show appropriate errors and return true if no errors
+  // Check credit card number field for validity
   const validCardNumber = function() {
     let $ccNumValue = $($ccNum).val();
     const ccNumIsValid = /^\d{13,16}$/.test($ccNumValue);
@@ -308,14 +258,14 @@ const validPayment = function() {
     return ccNumIsValid;
   }
 
-  // Check zip code value, show appropriate errors and return true if no errors
+  // Check zip code field for validity
   const validZip = function() {
     const zipIsValid = /^\d{5}$/.test($($zip).val());
     zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
     return zipIsValid;
   }
 
-  // Check cvv value, show appropriate errors and return true if no errors
+  // Check cvv field for validity
   const validCvv = function() {
     const cvvIsValid = /^\d{3}$/.test($($cvv).val());
     cvvIsValid ? (removeError($($cvv), $cvvError)) : (showError($($cvv), $cvvError));
@@ -328,7 +278,7 @@ const validPayment = function() {
     return true;
   }
   else {
-    // If 'credit card' is selected, run payment validation functions
+    // If 'credit card' is selected, check payment fields for validity
     validCardNumber();
     validZip();
     validCvv();
@@ -342,19 +292,59 @@ const validPayment = function() {
   }
 }
 
-// Run this function when form is submitted
+// Check all form fields for validity
 const formIsValid = function() {
   validName();
   validEmail();
   validActivity();
   validPayment();
-  // Add other validation functions with '&&' below
+  // If all fields are valid, hide main error and return true
   if (validName() && validEmail() && validActivity() && validPayment()) {
     $($mainError).hide();
     return true;
   }
+  // If any field is not valid, show main error and return false
   else {
     $($mainError).slideDown(1000);
     return false;
   }
 }
+
+
+
+/********************************
+Form submit
+********************************/
+const resetFormFields = function() {
+  $($name).val('');
+  $($email).val('');
+  $('#title').val('full-stack js developer')
+  $('#other-title').val('')
+  $('#other').hide();
+  $('#size').val('medium')
+  $('#design').val('select')
+  $('#color').val('select')
+  $('#colors-js-puns').hide()
+  $($activities).each(function(index) {
+    $activities[index].checked = false;
+    $($activities[index]).prop("disabled", false);
+    $('.activities label').eq(index).removeClass("conflict");
+  });
+  total = 0;
+  $($totalDiv).hide()
+  $('#payment').val('select_method')
+  $($ccNum).val('')
+  $($zip).val('')
+  $(cvv).val('')
+  $('#exp-month').val('1')
+  $('#exp-year').val('2016')
+}
+
+// When submit button is clicked
+$('button').on('click', function(event) {
+  event.preventDefault();
+  window.scrollTo(0, 0);
+  if( formIsValid() ) {
+    resetFormFields();
+  }
+});
