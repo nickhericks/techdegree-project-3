@@ -8,10 +8,18 @@ const $ccNum = $('#cc-num');
 const $zip = $('#zip');
 const $cvv = $('#cvv');
 
+let total = 0;
+const conflicts = {
+  '1': 3,
+  '3': 1,
+  '2': 4,
+  '4': 2,
+}
+
 
 
 /********************************
-Basic Info section
+Basic Info
 ********************************/
 // Set focus to name field on page load
 $($name).focus();
@@ -60,18 +68,9 @@ $('#design').on('change', function() {
 
 
 
-
 /********************************
 Activities section
 ********************************/
-let total = 0;
-const conflicts = {
-  '1': 3,
-  '3': 1,
-  '2': 4,
-  '4': 2,
-}
-
 const $totalDiv = $(`<div>Total: $<span class="totalSpan"></span></div>`);
 $('.activities').append($totalDiv);
 $($totalDiv).addClass('total').hide();
@@ -89,7 +88,6 @@ const checkConflicts = function(index, activity) {
       $($activities[conflictIndex]).prop("disabled", true);
       $('.activities label').eq(conflictIndex).addClass("conflict");
     }
-
     // If activity is de-selected, re-enable conflicting activity
     else {
       $($activities[conflictIndex]).prop("disabled", false);
@@ -116,11 +114,6 @@ $activities.each(function(index, activity) {
     updateTotal(index, activity);
   });
 });
-
-
-
-
-
 
 
 
@@ -164,12 +157,20 @@ newPayment($credit);
 Form submit
 ********************************/
 
-$('form').prepend(`<div id="mainError" class="error-message">Form not submitted. Please provide the information requested in the red boxes below.</div>`);
-const $mainError = $('#mainError');
+
+const $mainError = $(`<div id="mainError" class="error-message">Form not submitted. Please provide the information requested in the red boxes below.</div>`);
+
+const $nameError = $(`<div id="nameError" class="error-message">Please enter your name</div>`);
+
+
+
+
+
+
+$('form').prepend($mainError);
 $($mainError).hide();
 
-$($name).prev().after(`<div id="nameError" class="error-message">Please enter your name</div>`);
-const $nameError = $('#nameError');
+$($name).prev().after($nameError);
 $($nameError).hide();
 
 $($email).prev().after(`<div id="emailError" class="error-message">Please enter a valid email address</div>`);
