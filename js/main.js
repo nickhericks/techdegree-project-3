@@ -196,6 +196,8 @@ $($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">
 const $ccNumError = $('#ccNumError');
 $($ccNumError).hide();
 
+// $($activities[0]).prop('checked', 'true');
+// console.log($($activities)[0]);
 
 
 const resetFormFields = function() {
@@ -209,9 +211,11 @@ const resetFormFields = function() {
   $('#design').val('select')
   $('#color').val('select')
   $('#color').hide()
-  //
-  // deselect all checkboxes
-  //
+  $($activities).each(function(index) {
+    $activities[index].checked = false;
+    $($activities[index]).prop("disabled", false);
+    $('.activities label').eq(index).removeClass("conflict");
+  });
 
 
 }
@@ -220,19 +224,12 @@ const resetFormFields = function() {
 // When submit button is clicked
 $('button').on('click', function(event) {
   event.preventDefault();
-
-  formIsValid();
   window.scrollTo(0, 0);
-
-
-  if(  formIsValid() ) {
-    //
-    //
-    // CLEAR FORM FIELDS HERE
+  // Return true if all form fields are valid
+  formIsValid();
+  if( formIsValid() ) {
+    // Clear all fields on form submit
     resetFormFields();
-
-
-
   }
 });
 
