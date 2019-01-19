@@ -1,14 +1,20 @@
 /********************************
 Global variables
 ********************************/
+
 const $form = $('form');
 const $name = $('#name');
 const $email = $('#mail');
+const $colors = $('#color option');
 const $activities = $('input:checkbox');
+const $totalDiv = $(`<div class="total">Total: $<span class="totalSpan"></span></div>`);
+const $method = $('#payment');
+const $credit = $('#credit-card');
+const $paypal = $('#credit-card').next();
+const $bitcoin = $('#credit-card').next().next();
 const $ccNum = $('#cc-num');
 const $zip = $('#zip');
 const $cvv = $('#cvv');
-
 let total = 0;
 
 // Key value pairs identify activity conflicts
@@ -38,28 +44,27 @@ $($cvv).parent().parent().prepend($cvvError);
 $($zip).parent().parent().prepend($zipError);
 $($ccNum).parent().parent().prepend($missingCcNumError);
 $($ccNum).parent().parent().prepend($ccNumError);
+$('.activities').append($totalDiv);
+
 
 // Hide all error messages on page load
-$($mainError).hide();
-$($nameError).hide();
-$($emailError).hide();
-$($activityError).hide();
-$($cvvError).hide();
-$($zipError).hide();
-$($missingCcNumError).hide();
-$($ccNumError).hide();
-
+const hideAllErrors = function() {
+  $('.error-border').removeClass('error-border');
+  $($mainError).hide();
+  $($nameError).hide();
+  $($emailError).hide();
+  $($activityError).hide();
+  $($cvvError).hide();
+  $($zipError).hide();
+  $($missingCcNumError).hide();
+  $($ccNumError).hide();
+}
 
 
 
 /********************************
-Basic Info
+Basic Info section
 ********************************/
-// Set focus to name field on page load
-$($name).focus();
-
-// Hide Other Job Role field on page load
-$('#other').hide();
 
 // Show Other Job Role field if 'Other' is selected
 $('#title').on('change', function() {
@@ -70,15 +75,19 @@ $('#title').on('change', function() {
   }
 });
 
+// Checks email field validation as user types
+$($email).on('keyup', function(e) {
+  if (e.keyCode !== 9) {
+    validEmail();
+  }
+});
+
+
 
 
 /********************************
 T-Shirt section
 ********************************/
-// Hide Color dropdown menu on page load
-$('#colors-js-puns').hide();
-const $colors = $('#color option');
-$colors.hide();
 
 $('#design').on('change', function() {
   if($('#design').val() !== 'select') {
@@ -89,11 +98,13 @@ $('#design').on('change', function() {
   }
 
   if($('#design').val() === 'heart js') {
+    $('#color').val('select')
     $colors.each(function() {
       /I/.test($(this).text()) ? ($(this).show()) : ($(this).hide());
     });
   }
   else if ($('#design').val() === 'js puns') {
+    $('#color').val('select')
     $colors.each(function() {
       /Puns/.test($(this).text()) ? ($(this).show()) : ($(this).hide());
     });
@@ -105,18 +116,13 @@ $('#design').on('change', function() {
 /********************************
 Activities section
 ********************************/
-const $totalDiv = $(`<div>Total: $<span class="totalSpan"></span></div>`);
-$('.activities').append($totalDiv);
-$($totalDiv).addClass('total').hide();
 
 // Check for conflicting activities
 const checkConflicts = function(index, activity) {
   // If a conflict exists
   if(index in conflicts) {
-
     // Find conflicting activity index
     const conflictIndex = conflicts[index]
-
     // If activity is checked, disable conflicting activity
     if (activity.checked) {
       $($activities[conflictIndex]).prop("disabled", true);
@@ -135,9 +141,7 @@ const updateTotal = function(index, activity) {
   let adjustment = index===0 ? (200) : (100);
   // If activity is checked, add amount, if unchecked, subtract amount
   activity.checked ? (total += adjustment) : (total -= adjustment);
-
   $('.totalSpan').text(total);
-
   total === 0 ? ($($totalDiv).hide()) : ($($totalDiv).show());
 }
 
@@ -154,10 +158,6 @@ $activities.each(function(index, activity) {
 /********************************
 Payment section
 ********************************/
-const $method = $('#payment');
-const $credit = $('#credit-card');
-const $paypal = $('#credit-card').next();
-const $bitcoin = $('#credit-card').next().next();
 
 // Show selected payment option
 const newPayment = function(paymentSelected) {
@@ -182,20 +182,11 @@ $($method).on('change', function() {
   }
 });
 
-// Hide payment methods on page load
-newPayment($credit);
 
 
-
-
-
-
-// Checks email field validation and hide or show error
-$($email).on('keyup', function(e) {
-  if (e.keyCode !== 9) {
-    validEmail();
-  }
-});
+/********************************
+Form Validation
+********************************/
 
 // Display error border and message
 const showError = function(field, message) {
@@ -208,10 +199,6 @@ const removeError = function(field, message) {
   $(field).removeClass('error-border');
   $(message).hide();
 }
-
-/********************************
-Form Validation
-********************************/
 
 // Check name value, show appropriate errors and return true if no errors
 const validName = function() {
@@ -241,12 +228,12 @@ const validActivity = function() {
 
 // Check payment fields for validity
 const validPayment = function() {
+
   // Check credit card number field for validity
   const validCardNumber = function() {
-    let $ccNumValue = $($ccNum).val();
-    const ccNumIsValid = /^\d{13,16}$/.test($ccNumValue);
+    const ccNumIsValid = /^\d{13,16}$/.test($($ccNum).val());
     // If no credit card number is entered, display missingCcNumError message
-    if($ccNumValue.length === 0) {
+    if($($ccNum).val().length === 0) {
       removeError($($ccNum), $ccNumError);
       showError($($ccNum), $missingCcNumError);
     }
@@ -261,27 +248,24 @@ const validPayment = function() {
   // Check zip code field for validity
   const validZip = function() {
     const zipIsValid = /^\d{5}$/.test($($zip).val());
-    zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
-    return zipIsValid;
+     zipIsValid ? (removeError($($zip), $zipError)) : (showError($($zip), $zipError));
+    return zipIsValid
   }
 
   // Check cvv field for validity
   const validCvv = function() {
     const cvvIsValid = /^\d{3}$/.test($($cvv).val());
     cvvIsValid ? (removeError($($cvv), $cvvError)) : (showError($($cvv), $cvvError));
-    return cvvIsValid;
+    return cvvIsValid
   }
 
   // Check if 'credit card' is selected as payment method
-  if ($($method).val() !== 'credit card') {
-    // Return true if 'credit card' is not selected
-    return true;
-  }
-  else {
-    // If 'credit card' is selected, check payment fields for validity
+  if ($($method).val() === 'credit card') {
+    // Check payment fields for validity
     validCardNumber();
     validZip();
     validCvv();
+
     // If all payment fields are valid, return true
     if(validCardNumber() && validZip() && validCvv()) {
       return true;
@@ -289,6 +273,10 @@ const validPayment = function() {
     else {
       return false;
     }
+  }
+  // If 'credit card' not selected as payment method
+  else {
+    return true;
   }
 }
 
@@ -310,12 +298,9 @@ const formIsValid = function() {
   }
 }
 
-
-
-/********************************
-Form submit
-********************************/
-const resetFormFields = function() {
+// Reset form fields, variables, and error messages
+const initializePage = function() {
+  $($name).focus();
   $($name).val('');
   $($email).val('');
   $('#title').val('full-stack js developer')
@@ -332,19 +317,35 @@ const resetFormFields = function() {
   });
   total = 0;
   $($totalDiv).hide()
-  $('#payment').val('select_method')
+  $('#payment').val('credit card')
+  newPayment($credit);
   $($ccNum).val('')
   $($zip).val('')
   $(cvv).val('')
   $('#exp-month').val('1')
   $('#exp-year').val('2016')
+  hideAllErrors();
 }
+
+
+
+/********************************
+Submit button
+********************************/
 
 // When submit button is clicked
 $('button').on('click', function(event) {
   event.preventDefault();
   window.scrollTo(0, 0);
   if( formIsValid() ) {
-    resetFormFields();
+    initializePage();
   }
 });
+
+
+
+/********************************
+Initialize page
+********************************/
+
+initializePage();
