@@ -196,28 +196,29 @@ $($ccNum).parent().parent().prepend(`<div id="ccNumError" class="error-message">
 const $ccNumError = $('#ccNumError');
 $($ccNumError).hide();
 
-// $($activities[0]).prop('checked', 'true');
-// console.log($($activities)[0]);
 
 
 const resetFormFields = function() {
-
   $($name).val('');
   $($email).val('');
   $('#title').val('full-stack js developer')
-  $('#other').val('')
+  $('#other-title').val('')
   $('#other').hide();
   $('#size').val('medium')
   $('#design').val('select')
   $('#color').val('select')
-  $('#color').hide()
+  $('#colors-js-puns').hide()
   $($activities).each(function(index) {
     $activities[index].checked = false;
     $($activities[index]).prop("disabled", false);
     $('.activities label').eq(index).removeClass("conflict");
   });
-
-
+  $('#payment').val('select_method')
+  $($ccNum).val('')
+  $($zip).val('')
+  $(cvv).val('')
+  $('#exp-month').val('1')
+  $('#exp-year').val('2016')
 }
 
 
