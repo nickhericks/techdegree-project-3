@@ -66,6 +66,13 @@ const hideAllErrors = function() {
 Basic Info section
 ********************************/
 
+// Checks email field validation as user types
+$($email).on('keyup', function(e) {
+  if (e.keyCode !== 9) {
+    validEmail();
+  }
+});
+
 // Show Other Job Role field if 'Other' is selected
 $('#title').on('change', function() {
   if($('#title').val() === 'other') {
@@ -74,14 +81,6 @@ $('#title').on('change', function() {
     $('#other').slideUp();
   }
 });
-
-// Checks email field validation as user types
-$($email).on('keyup', function(e) {
-  if (e.keyCode !== 9) {
-    validEmail();
-  }
-});
-
 
 
 
@@ -211,7 +210,7 @@ const validName = function() {
 
 // Check email value, show appropriate errors and return true if no errors
 const validEmail = function() {
-  const emailIsValid = /^[^@]+@[^@]+\.[a-z]+$$/i.test($($email).val());
+  const emailIsValid = /^[^@]+@[^@]+\.[a-z]+$/i.test($($email).val());
   // If name is valid, hide errors, else show errors
   emailIsValid ? (removeError($($email), $emailError)) : (showError($($email), $emailError));
   // Return true if valid
