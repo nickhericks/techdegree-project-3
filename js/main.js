@@ -61,7 +61,6 @@ const hideAllErrors = function() {
 }
 
 
-
 /********************************
 Basic Info section
 ********************************/
@@ -81,7 +80,6 @@ $('#title').on('change', function() {
     $('#other').slideUp();
   }
 });
-
 
 
 /********************************
@@ -109,7 +107,6 @@ $('#design').on('change', function() {
     });
   }
 });
-
 
 
 /********************************
@@ -153,7 +150,6 @@ $activities.each(function(index, activity) {
 });
 
 
-
 /********************************
 Payment section
 ********************************/
@@ -180,7 +176,6 @@ $($method).on('change', function() {
       break;
   }
 });
-
 
 
 /********************************
@@ -327,7 +322,6 @@ const initializePage = function() {
 }
 
 
-
 /********************************
 Submit button
 ********************************/
@@ -340,7 +334,6 @@ $('button').on('click', function(event) {
     initializePage();
   }
 });
-
 
 
 /********************************
