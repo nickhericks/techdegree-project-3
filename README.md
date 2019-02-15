@@ -1,17 +1,3 @@
-
-
-
-
-### Techniques and concepts used:
-- jQuery - For  document traversal/manipulation, event handling and animation.
-- Regular Expressions - For form validation.
-- Progressive enhancement - JavaScript has been added to improve the user experience without making the page dependent upon JavaScript.
-
-
-
-
-
-
 # Project 3 - Full Stack JavaScript Techdegree
 
 ### Interactive Form
@@ -27,7 +13,12 @@ This project uses JavaScript and form validation using regular expressions to en
 ## Project objective
 To complete this project I built customized conditional behavior and interactivity. Form validation is handled on the client side using JavaScript and regular expressions, with customized error messages for each field. Also, jQuery is used in this project which allowed for a shorter and simplified syntax.
 
-## Features
+### Techniques and concepts:
+- jQuery - For document traversal/manipulation, event handling and animation
+- Regular Expressions - For form validation
+- Progressive Enhancement - JavaScript added without making the page dependent upon JavaScript.
+
+## Additional features
 In addition to completing the basic requirements for this techdegree project, I also built additional features and functionality using JavaScript such as:
 
 - [x] Conditional error messages on some fields
