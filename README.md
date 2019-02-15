@@ -65,4 +65,4 @@ const showPage = (list, button) => {
 This project was built as part of the [Full Stack JavaScript Techdegree](https://join.teamtreehouse.com/techdegree/) offered by [Treehouse](https://teamtreehouse.com) :raised_hands:
 
 ## Screenshots
-<img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218337/portfolio/interactive-form-1.png" height="600px"><span width="200px"><img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218338/portfolio/interactive-firm-2.png" height="600px">
+<img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218337/portfolio/interactive-form-1.png" height="600px" padding-right="200px"><img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218338/portfolio/interactive-firm-2.png" height="600px">
