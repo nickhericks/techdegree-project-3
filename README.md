@@ -64,5 +64,5 @@ const showPage = (list, button) => {
 ## Acknowledgements
 This project was built as part of the [Full Stack JavaScript Techdegree](https://join.teamtreehouse.com/techdegree/) offered by [Treehouse](https://teamtreehouse.com) :raised_hands:
 
-## Demo
-<img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550132316/portfolio/list-pagination-and-filtering.gif" height="500px">
+## Screenshots
+<img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218337/portfolio/interactive-form-1.png" height="400px"><img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218338/portfolio/interactive-firm-2.png" height="400px">
