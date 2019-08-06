@@ -4,11 +4,14 @@
 This project uses JavaScript and form validation using regular expressions to enhance an interactive registration form.
 
 ***
+## View project
+:mag: Live version available at [nickhericks.github.io/techdegree-project-3/](https://nickhericks.github.io/techdegree-project-3/)
+
+<br><br>
+
 <img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550234182/portfolio/interactive-form-1.png" width="400px"><img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550218646/portfolio/screenshot-padding-github.png" width="50px">
 <img src="https://res.cloudinary.com/dtqevfsxh/image/upload/v1550234182/portfolio/interactive-form-2.png" width="400px">
 
-## View project
-:mag: Live version available at [nickhericks.github.io/techdegree-project-3/](https://nickhericks.github.io/techdegree-project-3/)
 
 ## Project objective
 To complete this project I built customized conditional behavior and interactivity. Form validation is handled on the client side using JavaScript and regular expressions, with customized error messages for each field. Also, jQuery is used in this project which allowed for a shorter and simplified syntax.
